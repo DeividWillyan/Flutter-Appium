@@ -6,3 +6,5 @@ Example of a Flutter project using automated tests with Appium.
 
 Ref:
 https://github.com/truongsinh/appium-flutter-driver
+
+<img src="Appium-Log.PNG" width="1000">
