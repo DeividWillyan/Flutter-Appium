@@ -36,18 +36,27 @@ const opts = {
   await driver.execute('flutter:forceGC');
 
   //Enter One page
-  await driver.execute('flutter:waitFor', find.byValueKey('btn-login'));
-  await driver.elementSendKeys(find.byValueKey('input-user'), 'test@gmail.com')
-  await driver.elementSendKeys(find.byValueKey('input-password'), '123456')
-  await driver.elementClick(find.byType('RaisedButton'));
+  const btnLogin = find.byValueKey('btn-login');
+  const inputUser = find.byValueKey('input-user');
+  const inputPassword = find.byValueKey('input-password');
+
+  await driver.execute('flutter:waitFor', btnLogin);
+  await driver.elementSendKeys(inputUser, 'test@gmail.com')
+  await driver.elementSendKeys(inputPassword, '123456')
+  await driver.elementClick(btnLogin);
 
   //Enter Two page
+  const textCount = find.byValueKey('count-key');
+  const CustomWidget = find.byType('CustomTextExample');
+
   await driver.execute('flutter:waitFor', find.byType('Scaffold'));
   assert.strictEqual(await driver.getElementText(find.byText('Custom Widget')), 'Custom Widget');
-  await driver.elementClick(find.byType('CustomTextExample'));
-  assert.strictEqual(await driver.getElementText(find.byValueKey('count-key')), '1');
-  await driver.elementClick(find.byType('CustomTextExample'));
-  assert.strictEqual(await driver.getElementText(find.byValueKey('count-key')), '2');
+
+  await driver.elementClick(CustomWidget);
+  assert.strictEqual(await driver.getElementText(textCount), '1');
+
+  await driver.elementClick(CustomWidget);
+  assert.strictEqual(await driver.getElementText(textCount), '2');
 
   // return page
   await driver.elementClick(find.pageBack())
