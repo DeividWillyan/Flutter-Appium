@@ -8,10 +8,12 @@ const osSpecificOps = process.argv[2] === 'android' ? {
   app: __dirname + '/../../appium_example/build/app/outputs/apk/debug/app-debug.apk',
 } : process.argv[2] === 'ios' ? {
   platformName: 'iOS',
-  platformVersion: '12.2',
-  deviceName: 'iPhone X',
+  automationName: 'XCUITest',
+  deviceName: 'iPhone 12 Pro Max',
+  platformVersion: '14.2',
+  app: __dirname + '/../../appium_example/Build/ios/Debug-iphonesimulator/Runner.app',
   noReset: true,
-  app: __dirname + '/../apps/Runner.zip',
+  udid: "auto",
 
 } : {};
 
@@ -53,9 +55,11 @@ const opts = {
   assert.strictEqual(await driver.getElementText(find.byText('Custom Widget')), 'Custom Widget');
 
   await driver.elementClick(CustomWidget);
+  await new Promise(r => setTimeout(r, 100));
   assert.strictEqual(await driver.getElementText(textCount), '1');
 
   await driver.elementClick(CustomWidget);
+  await new Promise(r => setTimeout(r, 100));
   assert.strictEqual(await driver.getElementText(textCount), '2');
 
   // return page
